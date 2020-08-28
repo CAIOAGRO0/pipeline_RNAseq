@@ -1,6 +1,6 @@
 ---
 title: | 
-  | \flushleft{\Large{\textbf{Pipeline - Pre-processing of RNA-seq data}}}
+  | \flushleft{\Large{\textbf{Pipeline - Preprocessing of RNA-seq data}}}
 bibliography: supp.bib
 citation_package: natbib
 csl: bioinformatics.csl
