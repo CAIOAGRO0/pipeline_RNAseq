@@ -50,36 +50,10 @@ Quantification of transcript expression was done with Salmon, a tool that quanti
 
 For the construction of the gene expression matrix we used the R/Bioconductor tximeta package, but we also provided a tutorial on how to build the matrix with the R/Bioconductor tximport package. Tximport imports abundance at the level of transcription, estimated counts and transcription lengths and summarizes this data in matrices [@SonesonLoveRobinson_ART_2015]. The package, on the other hand, imports the transcription quantification obtained by Salmon and automatically appends transcription intervals and metadata information [@LoveEtAl_ART_2020].
 
-# 2. Work environment and samples
-## 2.1. Workplace
+# 2. Workplace
+Download the pipeline in the personal folder of your Linux computer (~ /) so that the generated scripts can access the necessary folder structure in each step. If you prefer, replace the "~ /" with the path you downloaded the pipeline.
 
-Before installing the tools and running the analyzes, it is necessary to prepare the work environment by creating directories for the organization of the scripts and results.
-
-Below is described the command in bash to be executed in the Linux terminal. It will create a directory for a type of analysis in your home directory.
-```{bash eval=FALSE}
-# -- LINUX TERMINAL --
-# Creating directories and subdirectories
-mkdir -p ~/Preproc_RNAseq/Samples ~/Preproc_RNAseq/Samples_proc_fastp \
-~/Preproc_RNAseq/ ~/Preproc_RNAseq/Samples_proc_Cutadapt \
-~/Preproc_RNAseq/Metadata ~/Preproc_RNAseq/2_Filt_cleaning \
-~/Preproc_RNAseq/4_Quant_transc/Quant_Salmon ~/Preproc_RNAseq/5_Gen_mat \
-~/Preproc_RNAseq/Tools \
-~/Preproc_RNAseq/1_Qual_control_2-1/FastQC/Rep_zip_FastQC \
-~/Preproc_RNAseq/1_Qual_control_2-1/FastQC/Rep_MultiQC_FastQC \
-~/Preproc_RNAseq/1_Qual_control_2-1/FastQC/Rep_html_FastQC \
-~/Preproc_RNAseq/1_Qual_control_2-1/FastQC/Rep_zip_FastQC \
-~/Preproc_RNAseq/1_Qual_control_2-1/FastQC/Rep_MultiQC_FastQC \
-~/Preproc_RNAseq/3_Qual_control_2-2/Fastp/Rep_html_fastp \
-~/Preproc_RNAseq/3_Qual_control_2-2/Fastp/Rep_json_fastp \
-~/Preproc_RNAseq/3_Qual_control_2-2/FastQC/Rep_html_FastQC_fastp \
-~/Preproc_RNAseq/3_Qual_control_2-2/FastQC/Rep_zip_FastQC_fastp \
-~/Preproc_RNAseq/3_Qual_control_2-2/FastQC/Rep_MultiQC_FastQC_fastp \
-~/Preproc_RNAseq/3_Qual_control_2-2/FastQC/Rep_html_FastQC_Cutadapt \
-~/Preproc_RNAseq/3_Qual_control_2-2/FastQC/Rep_zip_FastQC_Cutadapt \
-~/Preproc_RNAseq/3_Qual_control_2-2/FastQC/Rep_MultiQC_FastQC_Cutadapt
-```
-
-## 2.2. Samples
+# 3. Samples
 We downloaded the GEO samples with the following commands on the Linux terminal:
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
@@ -102,10 +76,10 @@ cd ~/Preproc_RNAseq/Samples
 --gzip SRR7014308
 ```
 
-# 3. Installing the tools
+# 4. Installing the tools
 The following describes how we install each tool, some of which can be installed in another way - check the documentation for the tools and choose your preferred installation mode.
 
-## 3.1 System Libraries
+## 4.1 System Libraries
 ```{bash eval=FALSE}
 sudo apt-get install libssl-dev openssl libcurl4 libcurl4-openssl-dev \
 default-jdk gdebi libgl1-mesa-glx libegl1-mesa libxrandr2 \
@@ -113,7 +87,7 @@ libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 \
 libxtst6 xml2 libxml2-dev libtiff-dev libfftw3-dev
 ```
 
-## 3.2. FastQC
+## 4.2. FastQC
 **FastQC** can be installed from the precompiled binary.
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
@@ -127,7 +101,7 @@ chmod 755 fastqc
 ./fastqc --help
 ```
 
-## 3.3. MultiQC
+## 4.3. MultiQC
 The installation of the **MultiQC** package can be done with the python package manager "pip".
 ```{r eval=FALSE}
 # -- LINUX TERMINAL --
@@ -135,7 +109,7 @@ sudo apt install python3-pip
 sudo pip3 install multiqc
 ```
 
-## 3.4. fastp
+## 4.4. fastp
 Download the compiled binary for CentOS/Ubuntu
 ```{r eval=FALSE}
 # -- LINUX TERMINAL --
@@ -144,14 +118,14 @@ wget http://opengene.org/fastp/fastp
 chmod a+x ./fastp
 ```
 
-## 3.5. Cutadapt
+## 4.5. Cutadapt
 Install **Cutadapt** using the Apt tool.
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
 sudo apt install cutadapt
 ```
 
-## 3.6. Salmon
+## 4.6. Salmon
 
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
@@ -168,30 +142,7 @@ conda create -n salmon salmon
 conda config --set auto_activate_base False
 ```
 
-## 3.7. R
-
-```{bash eval=FALSE}
-# -- LINUX TERMINAL --
-# Installation of R (v. 4.0)
-sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
-sudo apt-key adv --keyserver keyserver.ubuntu.com \
---recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-sudo apt update
-sudo apt install r-base r-base-core r-recommended r-base-dev
-```
-
-## 3.8. RStudio
-
-```{bash eval=FALSE}
-# -- LINUX TERMINAL --
-sudo apt-get install gdebi
-cd ~/Preproc_RNAseq/Tools
-wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.3.959-amd64.deb
-sudo gdebi rstudio-1.3.959-amd64.deb
-```
-
-
-## 3.9. R Libraries
+## 4.7. R Libraries
 The R libraries that we will use: **tximport** [@SonesonLoveRobinson_ART_2015], **tximeta** [@LoveEtAl_ART_2020], **GenomicFeatures** [@LawrenceEtAl_ART_2013], **ensembldb** [@RainerGattoWeichenberger_ART_2019], **AnnotationDbi** [@PagesEtAl_PC_2019], **magrittr** [@BacheWickham_PC_2014], **tibble** [@MullerWickham_PC_2020], **knitr** [@Xie_PC_2020], **kableExtra** [@Zhu_PC_2019], **readr** [@WickhamHesterFrancois_PC_2018] e **AnnotationHub** [@MorganShepherd_PR_AnnotationHub_2020].
 
 Within RStudio or in the R environment, run the commands below to install the libraries that we will be using.
@@ -205,7 +156,7 @@ BiocManager::install(c("rnaseqGene", "tximport", "tximeta","GenomicFeatures", "e
                        "AnnotationDbi","AnnotationHub"))
 ```
 
-# 4. Quality control before cleaning and filtering RNA-seq data 
+# 5. Quality control before cleaning and filtering RNA-seq data 
 We check the quality of FASTQ files using the **FastQC** program[@Andrews2012]. Through it we obtain quality statistics by file (and not by sample, as FastQC does not consider pairend).
 
 To generate the files regarding the quality of the sequencing, we generate a script (script_quality_gross_seq_fastqc.sh) in Bash.
@@ -240,9 +191,9 @@ In the ".html" file generated by **FastQC** with RNA-seq data, the interesting t
 knitr::include_graphics("/home/jean/Documentos/Analises_dados_GEO/1_Pre-processamento/Pipeline/Imagens/Painel_antlimp_SRR7014308_2.pdf")
 ```
 
+\newpage
 The average quality indexes of the SRR7014308_2 file (Figure 1.A) were good, however some bases at the end of the sequences had low quality indexes making the average of these positions drop. Most of the reads had quality indexes> 20 on the Phred scale (Figure 1.B), indicating the success of the sequencing. Few Ns were identified (Figure 1.C), reinforcing the presentation of good sequencing. As for adapters, a low content of Illumina adapters was identified at the end of some reads (Figure 1.D). Such results show that the SRR7014308_2 file needs cleaning and filtering the reads.
 
-\newpage
 To combine **FastQC** statistics in a single ".html" report we use the **MultiQC** tool [@EwelsEtAl2016]. We generated a script (script_quality_gross_seq_multiqc.sh) in Bash:
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
@@ -273,7 +224,7 @@ Figure 2. presents the quality control before cleaning and filtering the FASTQ f
 knitr::include_graphics("/home/jean/Documentos/Analises_dados_GEO/1_Pre-processamento/Pipeline/Imagens/Painel_antlimp_MulriQC.pdf")
 ```
 
-# 5. Cleaning and filtering of RNA-seq data 
+# 6. Cleaning and filtering of RNA-seq data 
 Before assembling the script for cleaning and filtering the reads, we generated a ".txt" file (samples_names.txt) via the R environment with the names of the FASTQ files without the extension "_1.fastq.gz" or "_2.fastq.gz" so that the filter script could read files R1 and R2 for the same sample.
 ```{r eval=FALSE}
 # -- ENVIRONMENT R --
@@ -299,7 +250,7 @@ write.table(samples_names, "samples_names.txt",
             )
 ```
 
-## 5.1. Unknown sequence of adapters
+## 6.1. Unknown sequence of adapters
 As the adapters were identified in the FASTQ files, and there were some reads that needed to be filtered for the quality of the nucleotides and the N content, we used the **fastp** tool [@ChenEtAl2018] to remove the adapters and clean the reads with low quality indexes. The **fastp** tool filters bad readings, that is, with very low quality, very short or with many Ns. It uses the sliding window method such as Trimmomatic (but faster) when cutting the adapter. Another advantage of this tool is that it is not necessary to enter the adapter string, that is, it automatically detects [@ChenEtAl2018] adapters and removes them.
 
 We generated a Bash script using the **fastp** tool to filter and clean the reads. The file "nome_amotras.txt" was used as a reference indicating to the tool that the files R1 and R2 with the same name refer to the same sample.
@@ -332,7 +283,7 @@ We run the script_trimming_fastp.sh script on the Linux terminal.
 bash ~/Preproc_RNAseq/2_Filt_cleaning/script_trimming_fastp.sh
 ```
 
-## 5.2. Known sequence of adapters
+## 6.2. Known sequence of adapters
 If we knew what the adapter strings contained in the files were, we would use the **Cutadapt** tool to remove them. Another time that we would also use this tool is if **fastp** had not detected or removed all the adapters identified by FastQC. 
 
 We generated, a Bash script indicating for **Cutadapt** to remove the Illumina universal adapter string.
@@ -459,7 +410,7 @@ We run script_trimming_cutadapt_list.sh on the Linux terminal.
 bash ~/Preproc_RNAseq/2_Filt_cleaning/script_trimming_cutadapt_list.sh
 ```
 
-# 6. Quality control after cleaning and filtering RNA-seq data
+# 7. Quality control after cleaning and filtering RNA-seq data
 After cleaning and filtering the FASTQ files, it was necessary to check the quality of the files, making sure to check the removal of adapters and bases with low quality indexes.
 
 To generate the files regarding the quality of the sequencing, we built a script (script_quality_fil_seq_fastqc.sh) in Bash.
@@ -523,7 +474,7 @@ knitr::include_graphics("/home/jean/Documentos/Analises_dados_GEO/1_Pre-processa
 
 **Note:** If you followed topic 5.2, change the name of the directories in the scripts so that **FastQC** and **MultiQC** read the correct files.
 
-# 7. Quantification of transcripts
+# 8. Quantification of transcripts
 For the quantification of RNA-seq readings, we used the **Salmon** program - a free software tool that estimates the abundance at the level of transcription from RNA-seq readings [@PatroEtAl2017]. To map the transcripts, we used the GENCODE reference transcriptome (release 34, GRCh38.13) [@Gencode2020].
 
 At first we will download the transcriptome mapping for GENCODE release 34 (GRCh38.p13) - you can change the mapping version by changing version 34 to another version - via the R environment.
@@ -586,10 +537,10 @@ bash ~/Preproc_RNAseq/4_Quant_transc/script_quantification_salmon.sh
 conda deactivate
 ```
 
-# 8. Construction of the gene expression matrix
+# 9. Construction of the gene expression matrix
 For the construction of gene expression matrices, it is necessary to import the quantification generated by **Salmon** into the R environment. In this Pipeline we demonstrate two R/Bioconductor packages for importing the quantification of transcripts: **tximport** [@SonesonLoveRobinson_ART_2015] and **tximeta** [@LoveEtAl2019].
 
-## 8.1. Construction of the gene matrix with the package `tximport`
+## 9.1. Construction of the gene matrix with the package `tximport`
 The R / Bioconductor **tximport** package imports plenty of transcripts and summarizes in matrices [@SonesonLoveRobinson_ART_2015]. We mapped the transcripts to genes using the GENCODE release 34 (GRCh38.p13) [@Gencode2020] gene annotation, downloaded the GENCODE release 34 (GRCh38.p13) annotation via the R environment and selected the GENEID of the transcripts of the annotation:
 ```{r eval=FALSE}
 # -- ENVIRONMENT R --
@@ -654,7 +605,7 @@ Finally, we save the `mat_gse` object:
 save(mat_gse, file = "~/Preproc_RNAseq/5_Gen_mat/mat_gse_tximport.RData")
 ```
 
-## 8.2. Construction of the gene matrix with the package `tximeta`
+## 9.2. Construction of the gene matrix with the package `tximeta`
 The import of the quantification of the transcripts can also be done using the package R / Bioconductor **tximeta** [@LoveEtAl2019]. The **tximeta** package extends the **tximport** package by automatically adding annotation metadata for transcriptomes [@Love2019]. Below we describe the tutorial on how to import the quantification of transcripts using the R/Bioconductor **tximeta** package.
 
 We downloaded the GENCODE release 34 (GRCh38.p.13) gene annotation via R environment:
@@ -729,7 +680,7 @@ save(se, file = "~/Preproc_RNAseq/5_Gen_mat/mat_se_tximeta.RData")
 save(gse, file = "~/Preproc_RNAseq/5_Gen_mat/mat_gse_tximeta.RData")
 ```
 
-# 9. Annotation of transcripts
+# 10. Annotation of transcripts
 We used the R / Bioconductor **AnnotationHub** [@MorganShepherd_PR_AnnotationHub_2020] package to annotate the transcripts. Below we present a way to annotate the matrices obtained by **tximeta**, if you are working with the object generated by **tximport** replace the `gse` object with` mat_gse`.
 ```{r eval=FALSE}
 # -- ENVIRONMENT R --
