@@ -51,7 +51,7 @@ Quantification of transcript expression was done with Salmon, a tool that quanti
 For the construction of the gene expression matrix we used the R/Bioconductor tximeta package, but we also provided a tutorial on how to build the matrix with the R/Bioconductor tximport package. Tximport imports abundance at the level of transcription, estimated counts and transcription lengths and summarizes this data in matrices [@SonesonLoveRobinson_ART_2015]. The package, on the other hand, imports the transcription quantification obtained by Salmon and automatically appends transcription intervals and metadata information [@LoveEtAl_ART_2020].
 
 # 2. Workplace
-Download the pipeline in the personal folder of your Linux computer (~ /) so that the generated scripts can access the necessary folder structure in each step. If you prefer, replace the "~ /" with the path you downloaded the pipeline.
+Download the pipeline in the personal folder of your Linux computer (~/) so that the generated scripts can access the necessary folder structure in each step. If you prefer, replace the "~/" with the path you downloaded the pipeline.
 
 # 3. Samples
 We downloaded the GEO samples with the following commands on the Linux terminal:
