@@ -60,14 +60,14 @@ We downloaded the GEO samples with the following commands on the Linux terminal:
 # Download tool installation
 sudo apt install curl
 
-cd ~/Pipeline/Preproc_RNAseq/Tools
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Tools
 curl https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.9.6/sratoolkit.2.9.6-ubuntu64.tar.gz \
 -o sratoolkit.2.9.6-ubuntu64.tar.gz
 
 tar -xvzf sratoolkit.2.9.6-ubuntu64.tar.gz
 
 # Downloading samples
-cd ~/Pipeline/Preproc_RNAseq/Samples
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples
 ~/Pipeline/Preproc_RNAseq/Tools/sratoolkit.2.9.6-ubuntu64/bin/fastq-dump \
 --split-files --gzip SRR7014291
 ~/Pipeline/Preproc_RNAseq/Tools/sratoolkit.2.9.6-ubuntu64/bin/fastq-dump --split-files \
@@ -91,7 +91,7 @@ libxtst6 xml2 libxml2-dev libtiff-dev libfftw3-dev
 **FastQC** can be installed from the precompiled binary.
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
-cd ~/Pipeline/Preproc_RNAseq/Tools
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Tools
 # FastQC v0.11.9
 wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip \
 --no-check-certificate
@@ -113,7 +113,7 @@ sudo pip3 install multiqc
 Download the compiled binary for CentOS/Ubuntu
 ```{r eval=FALSE}
 # -- LINUX TERMINAL --
-cd ~/Pipeline/Preproc_RNAseq/Tools
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Tools
 wget http://opengene.org/fastp/fastp
 chmod a+x ./fastp
 ```
@@ -130,7 +130,7 @@ sudo apt install cutadapt
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
 # miniconda library
-cd ~/Pipeline/Preproc_RNAseq/Tools
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Tools
 wget https://repo.anaconda.com/miniconda/Miniconda3-py37_4.8.3-Linux-x86_64.sh
 bash Miniconda3-py37_4.8.3-Linux-x86_64.sh
 
@@ -164,13 +164,17 @@ To generate the files regarding the quality of the sequencing, we generate a scr
 # -- LINUX TERMINAL --
 # - script_quality_gross_seq_fastqc.sh -
 ## Generating the script
-cd ~/Pipeline/Preproc_RNAseq/1_Qual_control_2-1/FastQC
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/1_Qual_control_2-1/FastQC
 cat > script_quality_gross_seq_fastqc.sh
 #!/bin/bash
-cd ~/Pipeline/Preproc_RNAseq/Samples
-~/Pipeline/Preproc_RNAseq/Tools/FastQC/./fastqc *.gz
-mv *zip* ~/Pipeline/Preproc_RNAseq/1_Qual_control_2-1/FastQC/Rep_zip_FastQC
-mv *html* ~/Pipeline/Preproc_RNAseq/1_Qual_control_2-1/FastQC/Rep_html_FastQC
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples
+~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Tools/FastQC\
+/./fastqc *.gz
+mv *zip* ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/1_Qual_control_2-1/FastQC/Rep_zip_FastQC
+mv *html* ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/1_Qual_control_2-1/FastQC/Rep_html_FastQC
 
 ## -- Hit "Ctrl" plus "z" to save the script
 ```
@@ -181,7 +185,8 @@ We run the script: script_quality_gross_seq_fastqc.sh via Linux terminal.
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
 # Running the script via terminal
-bash ~/Pipeline/Preproc_RNAseq/1_Qual_control_2-1/FastQC/script_quality_gross_seq_fastqc.sh
+bash ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/1_Qual_control_2-1/FastQC/script_quality_gross_seq_fastqc.sh
 ```
 
 In the ~/Preproc_RNAseq/1_Contr_qual_2-1/FastQC/Rel_zip_FastQC directory are the ".zip" files for the analyzed files, they contain the graphs of each step of the analysis. In the directory ~/Preproc_RNAseq/1_Contr_qual_2-1/FastQC/Rel_html_FastQC are the ".html" files for the same analyzed files, they present the graphs of each step of the analysis on a single HTML page per file, which can be viewed by the browser.
@@ -199,13 +204,17 @@ To combine **FastQC** statistics in a single ".html" report we use the **MultiQC
 # -- LINUX TERMINAL --
 # - script_quality_gross_seq_multiqc.sh -
 # Generating the script
-cd ~/Pipeline/Preproc_RNAseq/1_Qual_control_2-1/FastQC
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/1_Qual_control_2-1/FastQC
 cat > script_quality_gross_seq_multiqc.sh
 #!/bin/bash
-cd ~/Pipeline/Preproc_RNAseq/1_Qual_control_2-1/FastQC/Rep_zip_FastQC
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/1_Qual_control_2-1/FastQC/Rep_zip_FastQC
 multiqc .
-mv *_data* ~/Pipeline/Preproc_RNAseq/1_Qual_control_2-1/FastQC/Rep_MultiQC_FastQC
-mv *html* ~/Pipeline/Preproc_RNAseq/1_Qual_control_2-1/FastQC/Rep_MultiQC_FastQC
+mv *_data* ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/1_Qual_control_2-1/FastQC/Rep_MultiQC_FastQC
+mv *html* ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/1_Qual_control_2-1/FastQC/Rep_MultiQC_FastQC
 
 ## Hit "Ctrl" plus "z" to save the script
 ```
@@ -214,7 +223,8 @@ We run the script_quality_gross_seq_multiqc.sh via the Linux terminal:
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
 # Running the script via terminal
-bash ~/Pipeline/Preproc_RNAseq/1_Qual_control_2-1/FastQC/script_quality_gross_seq_multiqc.sh
+bash ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/1_Qual_control_2-1/FastQC/script_quality_gross_seq_multiqc.sh
 ```
 
 We see in figure 2 that **MultiQC** concatenated the graphics of the files and presented them in an HTML page (directory of the HTML file: ~/Preproc_RNAseq/1_Contr_qual_2-1/FastQC/Rel_MultiQC_FastQC).
@@ -230,14 +240,16 @@ Before assembling the script for cleaning and filtering the reads, we generated 
 # -- ENVIRONMENT R --
 # - samples_names.txt -
 # Defining analysis directory
-setwd("~/Pipeline/Preproc_RNAseq/2_Filt_cleaning")
+setwd(
+  "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/2_Filt_cleaning")
 
 # Informing the directory path with the samples
-dir1 <- "~/Pipeline/Preproc_RNAseq/Samples"
+dir1 <- "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples"
 list.files(dir1)
 
 # Informing the path of the analysis directory
-dir2 <- "~/Pipeline/Preproc_RNAseq/2_Filt_cleaning"
+dir2 <- 
+  "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/2_Filt_cleaning"
 list.files(dir2)
 
 # Generating the .txt file
@@ -258,20 +270,29 @@ We generated a Bash script using the **fastp** tool to filter and clean the read
 # -- LINUX TERMINAL --
 # - script_trimming_fastp.sh -
 # Generating the script
-cd ~/Pipeline/Preproc_RNAseq/2_Filt_cleaning
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/2_Filt_cleaning
 cat > script_trimming_fastp.sh
 #!/bin/bash
 while read SAMP \n
 	do \n
 		echo "Preprocessing sample ${SAMP}"
-		~/Pipeline/Preproc_RNAseq/Tools/./fastp -i ~/Pipeline/Preproc_RNAseq/Samples/${SAMP}_1.fastq.gz \
-		-I ~/Pipeline/Preproc_RNAseq/Samples/${SAMP}_2.fastq.gz \
-		-o ~/Pipeline/Preproc_RNAseq/Samples_proc_fastp/${SAMP}_1.fastp.fastq.gz \
-		-O ~/Pipeline/Preproc_RNAseq/Samples_proc_fastp/${SAMP}_2.fastp.fastq.gz \
+		~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Tools\
+		/./fastp \
+		-i ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples\
+		/${SAMP}_1.fastq.gz \
+		-I ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples\
+		/${SAMP}_2.fastq.gz \
+		-o ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+		/Samples_proc_fastp/${SAMP}_1.fastp.fastq.gz \
+		-O ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+		/Samples_proc_fastp/${SAMP}_2.fastp.fastq.gz \
 		-j ${SAMP}.json -h ${SAMP}.html
-	done < ~/Pipeline/Preproc_RNAseq/2_Filt_cleaning/samples_names.txt
-mv *.html* ~/Pipeline/Preproc_RNAseq/3_Qual_control_2-2/Fastp/Rep_html_fastp
-mv *.json* ~/Pipeline/Preproc_RNAseq/3_Qual_control_2-2/Fastp/Rep_json_fastp
+	done < ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+	/2_Filt_cleaning/samples_names.txt
+mv *.html* ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/3_Qual_control_2-2/Fastp/Rep_html_fastp
+mv *.json* ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/3_Qual_control_2-2/Fastp/Rep_json_fastp
 
 ## Hit "Ctrl" plus "z" to save the script
 ```
@@ -280,7 +301,8 @@ We run the script_trimming_fastp.sh script on the Linux terminal.
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
 # Running the script
-bash ~/Pipeline/Preproc_RNAseq/2_Filt_cleaning/script_trimming_fastp.sh
+bash ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/2_Filt_cleaning/script_trimming_fastp.sh
 ```
 
 ## 6.2. Known sequence of adapters
@@ -291,7 +313,7 @@ We generated, a Bash script indicating for **Cutadapt** to remove the Illumina u
 # -- LINUX TERMINAL --
 # - script_trimming_cutadapt.sh -
 # Generating the script
-cd ~/Pipeline/Preproc_RNAseq/2_Filt_cleaning
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/2_Filt_cleaning
 cat > script_trimming_cutadapt.sh
 #!/bin/bash
 while read SAMP \n
@@ -299,11 +321,16 @@ while read SAMP \n
 		echo "Processing sample ${SAMP}"
 		cutadapt -g GATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNNNNTCTCGTATGCCGTCTTCTGCTTG \
 		-m 20 \
-        -o ~/Pipeline/Preproc_RNAseq/Samples_proc_Cutadapt/${SAMP}_1.cutadapt.fastq.gz \
-        -p ~/Pipeline/Preproc_RNAseq/Samples_proc_Cutadapt/${SAMP}_2.cutadapt.fastq.gz \
-        ~/Pipeline/Preproc_RNAseq/Samples/${SAMP}_1.fastq.gz \
-        ~/Pipeline/Preproc_RNAseq/Samples/${SAMP}_2.fastq.gz
-		done < ~/Pipeline/Preproc_RNAseq/2_Filt_cleaning/samples_names.txt
+        -o ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+        /Samples_proc_Cutadapt/${SAMP}_1.cutadapt.fastq.gz \
+        -p ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+        /Samples_proc_Cutadapt/${SAMP}_2.cutadapt.fastq.gz \
+        ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples\
+        /${SAMP}_1.fastq.gz \
+        ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples\
+        /${SAMP}_2.fastq.gz
+		done < ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+		/2_Filt_cleaning/samples_names.txt
 		
 ## Hit "Ctrl" plus "z" to save the script
 ```
@@ -312,7 +339,8 @@ We run script_trimming_cutadapt.sh on the Linux terminal.
 ```{r eval=FALSE}
 # -- LINUX TERMINAL --
 # Running the script
-bash ~/Pipeline/Preproc_RNAseq/2_Filt_cleaning/script_trimming_cutadapt.sh
+bash ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/2_Filt_cleaning/script_trimming_cutadapt.sh
 ```
 
 If we had a list of adapters, or if steps 5.1 and 5.2 had not removed all adapters found by FastQC, we would use **Cutadapt** with a list of adapters. We generated a FASTA file with a list of Illumina adapters (can be changed):
@@ -320,7 +348,7 @@ If we had a list of adapters, or if steps 5.1 and 5.2 had not removed all adapte
 # -- LINUX TERMINAL --
 # - adapters.fasta
 # Generating the file
-cd ~/Pipeline/Preproc_RNAseq/2_Filt_cleaning
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/2_Filt_cleaning
 cat > adapters.fasta
 >TruSeq Adapter
 GATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNNNNTCTCGTATGCCGTCTTCTGCTTG
@@ -386,18 +414,23 @@ Finally, we generate the script to read the list of adapters and remove those pr
 # -- LINUX TERMINAL --
 # - script_trimming_cutadapt_list.sh -
 # Generating the script
-cd ~/Pipeline/Preproc_RNAseq/2_Filt_cleaning
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/2_Filt_cleaning
 cat > script_trimming_cutadapt_list.sh
 #!/bin/bash
 while read SAMP \n
 	do \n
 		echo "Processing sample ${SAMP}"
 		cutadapt -g file:adapters.fasta -m 20 \
-        -o ~/Pipeline/Preproc_RNAseq/Samples_proc_Cutadapt/${SAMP}_1.cutadapt.fastq.gz \
-        -p ~/Pipeline/Preproc_RNAseq/Samples_proc_Cutadapt/${SAMP}_2.cutadapt.fastq.gz \
-        ~/Pipeline/Preproc_RNAseq/Samples/${SAMP}_1.fastq.gz \
-        ~/Pipeline/Preproc_RNAseq/Samples/${SAMP}_2.fastq.gz
-		done < ~/Pipeline/Preproc_RNAseq/2_Filt_cleaning/samples_names.txt
+        -o ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+        /Samples_proc_Cutadapt/${SAMP}_1.cutadapt.fastq.gz \
+        -p ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+        /Samples_proc_Cutadapt/${SAMP}_2.cutadapt.fastq.gz \
+        ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples\
+        /${SAMP}_1.fastq.gz \
+        ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples\
+        /${SAMP}_2.fastq.gz
+		done < ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+		/2_Filt_cleaning/samples_names.txt
 
 # Hit "Ctrl" plus "z" to save the script
 ```
@@ -407,7 +440,8 @@ We run script_trimming_cutadapt_list.sh on the Linux terminal.
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
 # Running the script
-bash ~/Pipeline/Preproc_RNAseq/2_Filt_cleaning/script_trimming_cutadapt_list.sh
+bash ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/2_Filt_cleaning/script_trimming_cutadapt_list.sh
 ```
 
 # 7. Quality control after cleaning and filtering RNA-seq data
@@ -418,13 +452,17 @@ To generate the files regarding the quality of the sequencing, we built a script
 # -- LINUX TERMINAL --
 # - script_quality_fil_seq_fastqc.sh -
 # Generating the script
-cd ~/Pipeline/Preproc_RNAseq/3_Qual_control_2-2/FastQC
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/3_Qual_control_2-2/FastQC
 cat > script_quality_fil_seq_fastqc.sh
 #!/bin/bash
-cd ~/Pipeline/Preproc_RNAseq/Samples_proc_fastp
-~/Pipeline/Preproc_RNAseq/Tools/FastQC/./fastqc *.gz
-mv *zip* ~/Pipeline/Preproc_RNAseq/3_Qual_control_2-2/FastQC/Rep_zip_FastQC_fastp
-mv *html* ~/Pipeline/Preproc_RNAseq/3_Qual_control_2-2/FastQC/Rep_html_FastQC_fastp
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples_proc_fastp
+~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Tools/FastQC\
+/./fastqc *.gz
+mv *zip* ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/3_Qual_control_2-2/FastQC/Rep_zip_FastQC_fastp
+mv *html* ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/3_Qual_control_2-2/FastQC/Rep_html_FastQC_fastp
 
 # Hit "Ctrl" plus "z" to save the script
 ```
@@ -433,7 +471,8 @@ We run script_quality_fil_seq_fastqc.sh on the Linux terminal.
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
 # Running the script
-bash ~/Pipeline/Preproc_RNAseq/3_Qual_control_2-2/FastQC/script_quality_fil_seq_fastqc.sh
+bash ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/3_Qual_control_2-2/FastQC/script_quality_fil_seq_fastqc.sh
 ```
 
 As mentioned in topic 4, the directory ~/Preproc_RNAseq/3_Contr_qual_2-2/FastQC/Rel_zip_FastQC contains the file ".zip" referring to the analyzed samples, in it we will have the graphs of each step of the analysis. In the ~/Preproc_RNAseq/3_Contr_qual_2-2/FastQC/Rel_html_FastQC directory, we will have the ".html" file referring to the same samples.
@@ -449,13 +488,17 @@ We ran the **MultiQC** tool to combine the **FastQC** statistics again. We gener
 # -- LINUX TERMINAL --
 # - script_quality_fil_seq_multiqc.sh -
 # Generating the script
-cd ~/Pipeline/Preproc_RNAseq/3_Qual_control_2-2/FastQC
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/3_Qual_control_2-2/FastQC
 cat > script_quality_fil_seq_multiqc.sh
 #!/bin/bash
-cd ~/Pipeline/Preproc_RNAseq/3_Qual_control_2-2/FastQC/Rep_zip_FastQC_fastp
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/3_Qual_control_2-2/FastQC/Rep_zip_FastQC_fastp
 multiqc .
-mv *_data* ~/Pipeline/Preproc_RNAseq/3_Qual_control_2-2/FastQC/Rep_MultiQC_FastQC_fastp
-mv *html* ~/Pipeline/Preproc_RNAseq/3_Qual_control_2-2/FastQC/Rep_MultiQC_FastQC_fastp
+mv *_data* ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/3_Qual_control_2-2/FastQC/Rep_MultiQC_FastQC_fastp
+mv *html* ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/3_Qual_control_2-2/FastQC/Rep_MultiQC_FastQC_fastp
 
 ## Hit "Ctrl" plus "z" to save the script
 ```
@@ -464,7 +507,8 @@ We run the script_quality_fil_seq_multiqc.sh on the Linux terminal:
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
 # Running the script
-bash ~/Pipeline/Preproc_RNAseq/3_Qual_control_2-2/FastQC/script_quality_fil_seq_multiqc.sh
+bash ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/3_Qual_control_2-2/FastQC/script_quality_fil_seq_multiqc.sh
 ```
 
 Figure 4 shows the same statistics as the FASTQ files in Figure 2, however, with the FASTQ files cleaned and filtered with **fastp**. It is noticed that the cleaning and filtering with **fastp** was successful, he managed to remove the adapters (Figure 4.D), reduced the Ns content (Figure 4.C) and thus increased the quality indexes of the reads (Figure 4.A and 4.B).
@@ -482,10 +526,12 @@ At first we will download the transcriptome mapping for GENCODE release 34 (GRCh
 ```{r eval=FALSE}
 # -- ENVIRONMENT R --
 # Defining working directory
-setwd("~/Pipeline/Preproc_RNAseq/4_Quant_transc")
+setwd(
+  "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/4_Quant_transc")
 
 # Analysis directory
-dir_quant <- "~/Pipeline/Preproc_RNAseq/4_Quant_transc"
+dir_quant <- 
+  "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/4_Quant_transc"
 list.files(dir_quant)
 
 # Searching the mapping in the repository
@@ -500,7 +546,7 @@ Then, we generate the transcriptome index - it is generated only once and we can
 ```{bash eval=FALSE}
 # -- LINUX TERMINAL --
 conda activate salmon
-cd ~/Pipeline/Preproc_RNAseq/4_Quant_transc
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/4_Quant_transc
 salmon index --gencode -t gencode.v34.transcripts.fa.gz -i gencode.v34_salmon_1.3.0
 conda deactivate
 ```
@@ -513,17 +559,20 @@ Script_quantificacao_salmon.sh generated in Bash assuming that the processed rea
 # -- LINUX TERMINAL --
 # - script_quantification_salmon.sh -
 # Generating the script
-cd ~/Pipeline/Preproc_RNAseq/4_Quant_transc
+cd ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/4_Quant_transc
 cat > script_quantification_salmon.sh
 #!/bin/bash
 while read SAMP \n
     do \n
 	    echo "Processing sample ${SAMP}"
 	    salmon quant -i gencode.v34_salmon_1.3.0 -l A \
-		    -1 ~/Pipeline/Preproc_RNAseq/Samples_proc_fastp/${SAMP}_1.fastp.fastq.gz \
-		    -2 ~/Pipeline/Preproc_RNAseq/Samples_proc_fastp/${SAMP}_2.fastp.fastq.gz \
+		    -1 ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+		    /Samples_proc_fastp/${SAMP}_1.fastp.fastq.gz \
+		    -2 ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+		    /Samples_proc_fastp/${SAMP}_2.fastp.fastq.gz \
 		    -p 4 --gcBias --validateMappings -o Quant_Salmon/${SAMP}_quant
-    done < ~/Pipeline/Preproc_RNAseq/2_Filt_cleaning/samples_names.txt
+    done < ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+    /2_Filt_cleaning/samples_names.txt
 
 ## Hit "Ctrl" plus "z" to save the script
 ```
@@ -533,7 +582,8 @@ We run script_quantification_salmon.sh on the Linux terminal:
 # -- LINUX TERMINAL --
 # Running the script
 conda activate salmon
-bash ~/Pipeline/Preproc_RNAseq/4_Quant_transc/script_quantification_salmon.sh
+bash ~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq\
+/4_Quant_transc/script_quantification_salmon.sh
 conda deactivate
 ```
 
@@ -549,7 +599,7 @@ library(AnnotationDbi)
 library(magrittr)
 
 # Defining working directory
-setwd("~/Pipeline/Preproc_RNAseq/5_Gen_mat")
+setwd("~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/5_Gen_mat")
 
 # Download annotation
 reposit <- "ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_34/"
@@ -573,7 +623,9 @@ head(tx2gene) %>%
 To import the quantification of the transcripts into the R environment, we use a vector with the names of the files to be imported by executing the following commands in the R environment:
 ```{r eval=FALSE}
 # -- ENVIRONMENT R --
-dirquant <- "~/Pipeline/Preproc_RNAseq/4_Quant_transc/Quant_Salmon/"
+dirquant <- 
+  "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/4_Quant_transc
+/Quant_Salmon/"
 files <- list.files(dirquant)
 files_import <- paste0(dirquant, files, "/quant.sf")
 all(file.exists(files_import))
@@ -602,7 +654,9 @@ colnames(mat_gse$length) <- samples_names
 Finally, we save the `mat_gse` object:
 ```{r eval=FALSE}
 # -- ENVIRONMENT R --
-save(mat_gse, file = "~/Pipeline/Preproc_RNAseq/5_Gen_mat/mat_gse_tximport.RData")
+save(mat_gse, 
+     file = "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq
+     /5_Gen_mat/mat_gse_tximport.RData")
 ```
 
 ## 9.2. Construction of the gene matrix with the package `tximeta`
@@ -612,7 +666,7 @@ We downloaded the GENCODE release 34 (GRCh38.p.13) gene annotation via R environ
 ```{r eval=FALSE}
 # -- ENVIRONMENT R --
 # Defining working directory
-setwd("~/Pipeline/Preproc_RNAseq/5_Gen_mat")
+setwd("~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/5_Gen_mat")
 
 # Download annotation
 reposit <- "ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_34/"
@@ -623,9 +677,13 @@ download.file(annot_file, "gencode.v34.annotation.gtf.gz")
 We created vectors with the transcript path, gene annotation and the index used by the **Salmon** program via the R environment.
 ```{r eval=FALSE}
 # -- ENVIRONMENT R --
-dirquants <- "~/Pipeline/Preproc_RNAseq/4_Quant_transc/Quant_Salmon/"
-dirannotation <- "~/Pipeline/Preproc_RNAseq/5_Gen_mat/"
-dirindex <- "~/Pipeline/Preproc_RNAseq/4_Quant_transc/"
+dirquants <- 
+  "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/4_Quant_transc
+/Quant_Salmon/"
+dirannotation <- 
+  "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/5_Gen_mat/"
+dirindex <- 
+  "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/4_Quant_transc/"
 ```
 
 We inform the reference files for the **tximeta** to map the transcripts and download the annotation metadata for the transcript used.
@@ -647,7 +705,9 @@ We imported the sample metadata table into the R environment (download the table
 ```{r eval=FALSE}
 # -- ENVIRONMENT R --
 library(readr)
-coldata <- read_csv("~/Pipeline/Preproc_RNAseq/Metadata/metadata.csv")
+coldata <- read_csv(
+  "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Metadata
+  /metadata.csv")
 ```
 
 We incorporated two columns with the names of the samples and the path of the `quant.sf` files respectively, to the set of metadata for the samples.
@@ -676,8 +736,10 @@ gse <- summarizeToGene(se)
 Finally, we save the `se` and` gse` objects.
 ```{r eval=FALSE}
 # -- ENVIRONMENT R --
-save(se, file = "~/Pipeline/Preproc_RNAseq/5_Gen_mat/mat_se_tximeta.RData")
-save(gse, file = "~/Pipeline/Preproc_RNAseq/5_Gen_mat/mat_gse_tximeta.RData")
+save(se, file = "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq
+     /5_Gen_mat/mat_se_tximeta.RData")
+save(gse, file = "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq
+     /5_Gen_mat/mat_gse_tximeta.RData")
 ```
 
 # 10. Annotation of transcripts
@@ -697,7 +759,7 @@ dim(EnsDbAnnotation)
 colnames(EnsDbAnnotation) <- c("ensemblid","symbol","gene_biotype","entrezid")
 
 # Add row annotation
-load("~/Pipeline/Preproc_RNAseq/")
+load("~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/")
 nrow(gse)
 gseAnnotation <- rowData(gse)
 
@@ -714,7 +776,8 @@ rownames(rowAnnotation) <- rowAnnotation$gene_id
 rowData(gse) <- rowAnnotation
 
 # Saving the object
-save(gse, file = "~/Pipeline/Preproc_RNAseq/5_Gen_mat/gse_noted.RData")
+save(gse, file = "~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq
+     /5_Gen_mat/gse_noted.RData")
 ```
 
 # Session information
