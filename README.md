@@ -9,10 +9,17 @@ The **Pipeline** directory contains the files **Pipeline_preprocessing_of_RNA-se
 # Quick start
 
 i. Download the repository:
-wget https://github.com/souzajs/pipeline_pre-processing_RNAseq_data/archive/master.zip
 
-ii. Extract the files to your home folder directory (example: "/home/jean");
+Type in the terminal:
+
+wget https://github.com/souzajs/pipeline_pre-processing_RNAseq_data/archive/master.zip;
+
+ii. Extract the files to your home folder directory (example: "/home/jean"):
+
+Type in the terminal:
+
 unzip master.zip
+
 cd pipeline_pre-processing_RNAseq_data-master
 
 ii. Download the samples or place the samples you want to work in the directory **~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples**;
