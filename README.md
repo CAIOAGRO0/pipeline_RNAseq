@@ -12,15 +12,17 @@ i. Download the repository:
 
 Type in the terminal:
 
+cd ~
+
 wget https://github.com/souzajs/pipeline_pre-processing_RNAseq_data/archive/master.zip
 
 ii. Extract the files to your home folder directory (example: "/home/jean"):
 
 Type in the terminal:
 
-unzip master.zip
+cd ~
 
-cd pipeline_pre-processing_RNAseq_data-master
+unzip master.zip
 
 ii. Download the samples or place the samples you want to work in the directory **~/pipeline_pre-processing_RNAseq_data-master/pipeline/Preproc_RNAseq/Samples**;
 
