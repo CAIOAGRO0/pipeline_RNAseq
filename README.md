@@ -12,7 +12,7 @@ i. Download the repository:
 
 Type in the terminal:
 
-wget https://github.com/souzajs/pipeline_pre-processing_RNAseq_data/archive/master.zip;
+wget https://github.com/souzajs/pipeline_pre-processing_RNAseq_data/archive/master.zip
 
 ii. Extract the files to your home folder directory (example: "/home/jean"):
 
